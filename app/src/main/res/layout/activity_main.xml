@@ -25,12 +25,16 @@
         android:layout_marginTop="110dp"
         android:id="@+id/progressBar2"
         />
-    
+
     <com.google.android.gms.ads.AdView
-        android:id="@+id/adBanner"
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-7528553357713331/4835036549"/>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/admob_publisher_id">
+    </com.google.android.gms.ads.AdView>
+
 
 </RelativeLayout>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Wisata Lampung Barat</string>
-    <string name="ad_native">ca-app-pub-7528553357713331/5363210654</string>
-    <string name="ad_banner">ca-app-pub-7528553357713331/8588139790 </string>
+    <string name="admob_publisher_id">ca-app-pub-7528553357713331~9560410300</string>
+    <string name="admob_interstitial_id">ca-app-pub-7528553357713331/6658914796</string>
 </resources>

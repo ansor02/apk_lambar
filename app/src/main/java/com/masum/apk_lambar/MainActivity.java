@@ -11,15 +11,19 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
     WebView webView;
     ProgressBar bar;
-    AdView adBanner;
-    AdRequest adRequest;
+    private AdView mAdView;
+    private InterstitialAd interstitial;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +33,27 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new myWebclient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://alpinka.000webhostapp.com/lambar/");
-        MobileAds.initialize(this, "ca-app-pub-7528553357713331~9522781661");
-        adBanner=(AdView) findViewById(R.id.adBanner);
-        adRequest=new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        adBanner.loadAd(adRequest);
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        mAdView.loadAd(new AdRequest.Builder().build());
+
+        // Menyiapkan iklah untuk Interstitial Ad
+        interstitial = new InterstitialAd(MainActivity.this);
+
+        // Masukan ID iklan
+        interstitial.setAdUnitId(getString(R.string.admob_interstitial_id));
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Muat Iklan Interstisial
+        interstitial.loadAd(adRequest);
+        // Persiapkan Iklan Interstisial
+        interstitial.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                // Call displayInterstitial() function
+                displayInterstitial();
+
+            }
+        });
+
     }
 
     public class myWebclient extends WebViewClient{
@@ -62,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void displayInterstitial() {
+        // If Ads are loaded, show Interstitial else show nothing.
+        if (interstitial.isLoaded()) {
+            interstitial.show();
+        }
     }
 
     @Override
